@@ -257,9 +257,24 @@ require('lazy').setup({
   {
     'NMAC427/guess-indent.nvim', -- Detect tabstop and shiftwidth automatically
     config = function()
-      require('guess-indent').setup({})
+      require('guess-indent').setup {}
     end,
   },
+
+  {
+    'NeogitOrg/neogit',
+    dependencies = {
+      'nvim-lua/plenary.nvim', -- required
+      'sindrets/diffview.nvim', -- optional - Diff integration
+
+      -- Only one of these is needed.
+      'nvim-telescope/telescope.nvim', -- optional
+      'ibhagwan/fzf-lua', -- optional
+      'echasnovski/mini.pick', -- optional
+      'folke/snacks.nvim', -- optional
+    },
+  },
+
 
   -- NOTE: Plugins can also be added by using a table,
   -- with the first argument being the link and the following
@@ -930,6 +945,10 @@ require('lazy').setup({
       -- - sd'   - [S]urround [D]elete [']quotes
       -- - sr)'  - [S]urround [R]eplace [)] [']
       require('mini.surround').setup()
+
+      local minimisc = require('mini.misc')
+
+      minimisc.setup_auto_root()
 
       -- Simple and easy statusline.
       --  You could remove this setup call if you don't like it,

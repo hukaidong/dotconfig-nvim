@@ -256,9 +256,7 @@ require('lazy').setup({
   -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
   {
     'NMAC427/guess-indent.nvim', -- Detect tabstop and shiftwidth automatically
-    config = function()
-      require('guess-indent').setup {}
-    end,
+    opts = {},
   },
 
   {
@@ -275,6 +273,27 @@ require('lazy').setup({
     },
   },
 
+  {
+    'zbirenbaum/copilot.lua',
+    opts = {
+      panel = {
+        layout = {
+          position = 'right', -- top, bottom, left, right
+          ratio = 0.8,
+        },
+      },
+      suggestion = {
+        auto_trigger = true,
+        keymap = {
+          accept_word = false,
+          accept_line = false,
+          next = '<M-]>',
+          prev = '<M-[>',
+          dismiss = '<C-x>',
+        },
+      },
+    },
+  },
 
   -- NOTE: Plugins can also be added by using a table,
   -- with the first argument being the link and the following
@@ -778,7 +797,7 @@ require('lazy').setup({
       },
     },
     opts = {
-      notify_on_error = false,
+      notify_on_error = true,
       format_on_save = function(bufnr)
         -- Disable "format_on_save lsp_fallback" for languages that don't
         -- have a well standardized coding style. You can add additional
@@ -795,6 +814,10 @@ require('lazy').setup({
       end,
       formatters_by_ft = {
         lua = { 'stylua' },
+        nix = { 'nixfmt' },
+
+        -- You can also use multiple formatters
+        -- javascript = { "prettierd", "prettier" },
         -- Conform can also run multiple formatters sequentially
         -- python = { "isort", "black" },
         --
@@ -946,7 +969,7 @@ require('lazy').setup({
       -- - sr)'  - [S]urround [R]eplace [)] [']
       require('mini.surround').setup()
 
-      local minimisc = require('mini.misc')
+      local minimisc = require 'mini.misc'
 
       minimisc.setup_auto_root()
 
